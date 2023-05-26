@@ -11,7 +11,6 @@ export class AppController {
     return this.appService.getHello();
   }
 
-
   @Get('test')
   getTestResult(): string {
     return 'test hello';
@@ -19,8 +18,6 @@ export class AppController {
 
   @Post('/post_name')
   postHello(): string {
-    return 'post i am all good to go'
+    return 'post i am all good to go';
   }
-
-
 }
