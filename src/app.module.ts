@@ -4,12 +4,14 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ormOptions } from './config/orm.config';
 import { ConfigModule } from '@nestjs/config';
+import { globalConfig } from './config/global.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
+      load: [globalConfig],
     }),
     TypeOrmModule.forRoot(ormOptions),
   ],
@@ -17,7 +19,4 @@ import { ConfigModule } from '@nestjs/config';
   providers: [AppService],
 })
 export class AppModule {}
-// installing packages
-// typeorm, pg, @nestjs/typeorm,
 
-//  ORM is OBJECT RELATIONAL MAPPING
