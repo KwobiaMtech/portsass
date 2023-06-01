@@ -1,6 +1,7 @@
+// import { registerAs } from "@nestjs/config";
 import { registerAs } from "@nestjs/config";
-import * as Joi from 'joi';
-
+// import * as Joi from 'joi';
+import * as Joi from 'joi'
 
 export interface GlobalConfig {
     postgres: {

@@ -13,6 +13,7 @@ import { globalConfig } from './config/global.config';
       isGlobal: true,
       load: [globalConfig],
     }),
+    
     TypeOrmModule.forRoot(ormOptions),
   ],
   controllers: [AppController],
