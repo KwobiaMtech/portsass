@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ormOptions } from './config/orm.config';
 import { ConfigModule } from '@nestjs/config';
 import { globalConfig } from './config/global.config';
+import { UserModule } from './user.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { globalConfig } from './config/global.config';
     }),
     
     TypeOrmModule.forRoot(ormOptions),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
