@@ -13,7 +13,6 @@ export class RegisterUserDto {
   @IsNotEmpty()
   email: string;
 
-
   @IsString()
   @IsNotEmpty()
   password: string;
