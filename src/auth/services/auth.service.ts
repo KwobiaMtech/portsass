@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,6 +6,7 @@ import { RegisterUserDto } from '../dto/registerUser.dto';
 import * as bcrypt from 'bcrypt';
 import { RegisterUserResponseDto } from '../dto/registerUserResponse.dto';
 import { LoginDto, LoginResponseDto } from '../dto/login.dto';
+import { isUUID } from 'class-validator';
 
 @Injectable()
 export class AuthService {
@@ -62,7 +63,12 @@ export class AuthService {
   }
 
   async getUser(id: string): Promise<UserEntity> {
-    return await this.usersRepository.findOne({where: {id}});
+    this.validateId(id);
+    const user: UserEntity =  await this.usersRepository.findOne({where: {id}});
+    if(!user){
+      throw new HttpException('User not found', 404);
+    }
+    return user;
   }
 
   async updateUser(id: string, request: RegisterUserDto): Promise<UserEntity> {
@@ -86,5 +92,11 @@ export class AuthService {
 
   async getAllUsers(): Promise<UserEntity[]> {
     return await this.usersRepository.find();
+  }
+
+  validateId(id: string): void{
+    if(!isUUID(id)){
+      throw new HttpException('Invalid id', HttpStatus.BAD_REQUEST);
+    }
   }
 }

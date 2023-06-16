@@ -5,12 +5,18 @@ export interface GlobalConfig {
   postgres: {
     url: string;
   };
+  jwt: {
+    secret: string;
+  }
 }
 
 const GlobalConfigSchema = Joi.object<GlobalConfig>({
   postgres: Joi.object({
     url: Joi.string().required(),
   }),
+  jwt: Joi.object({
+    secret: Joi.string().required(),
+  })
 });
 
 export const globalConfig = registerAs('global', () => {
@@ -18,6 +24,9 @@ export const globalConfig = registerAs('global', () => {
     postgres: {
       url: process.env.DATABASE_URL,
     },
+    jwt: {
+      secret: process.env.JWT_SECRET,
+    }
   };
 
   const result = GlobalConfigSchema.validate(config, {
